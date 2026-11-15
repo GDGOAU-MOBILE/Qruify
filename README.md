@@ -80,10 +80,6 @@ flutter test
 
 Some dependency versions are pinned on purpose (`drift`, `sqlite3`, `path_provider_*`). Check `pubspec.yaml` before upgrading them.
 
-## Status
-
-All the main screens exist: splash, onboarding, Create with in-place result, Customize, History and Settings. Tested mostly on an Android emulator. iOS and real-phone scan testing are still to do.
-
 ## Contributing
 
 Issues and pull requests are welcome. Please run `flutter analyze` and `flutter test` before opening a pull request, and add a test for what you change.
