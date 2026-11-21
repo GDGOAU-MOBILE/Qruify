@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qruify Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; --bg:#fff; --fg:#1c1c1e; --muted:#6e6e73; --card:#f5f5f7; --line:#e5e5ea; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#000; --fg:#f5f5f7; --muted:#98989d; --card:#1c1c1e; --line:#2c2c2e; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:48px 22px 80px; }
+  h1 { font-size:36px; margin:0 0 4px; letter-spacing:-0.5px; }
+  h2 { font-size:21px; margin:38px 0 8px; }
+  p, li { color:var(--fg); } .muted { color:var(--muted); }
+  .card { background:var(--card); border-radius:18px; padding:16px 20px; margin:16px 0; }
+  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:15px; }
+  th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; } a { color:#0a84ff; text-decoration:none; } a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Qruify Privacy Policy</h1>
+  <p class="muted">Applies to Qruify for Android and iOS. Last updated: 21 November 2026.</p>
+
+  <div class="card">
+    <b>The short version:</b> Qruify is private by design and works completely offline. 
+    It has no accounts, no ads, no trackers, and no analytics. All QR code generation, camera scanning, guest list approvals, and history remain strictly on your own device.
+  </div>
+
+  <h2>1. What Qruify handles</h2>
+  <ul>
+    <li><b>Content you turn into QR codes:</b> Links, text, phone numbers, email addresses, or Wi-Fi configurations you type or paste are processed locally on your device to render the QR matrix. Nothing is transmitted to any server.</li>
+    <li><b>Camera frames (Scanner):</b> When you use the QR scanner, camera frames are processed in real-time in local device memory solely to detect and decode QR barcodes. Camera images or video feeds are never saved, recorded, or sent over a network.</li>
+    <li><b>Guest lists and attendee checks:</b> If you import a CSV file to check guests in, that data is stored in the app's local SQLite database on your device. The app verifies codes offline without external network queries.</li>
+    <li><b>History and custom styles:</b> Codes you choose to save and styling preferences (colors, logos) are kept in local device storage only.</li>
+  </ul>
+
+  <h2>2. Device permissions & why we need them</h2>
+  <table>
+    <tr><th>Permission</th><th>Purpose</th></tr>
+    <tr>
+      <td><b>Camera (<code>android.permission.CAMERA</code>)</b></td>
+      <td>Used strictly for optical QR code scanning within the app. Decoded in real-time on device; no photos or videos are stored or uploaded.</td>
+    </tr>
+  </table>
+
+  <h2>3. What we do not do</h2>
+  <ul>
+    <li>We do not collect, sell, or share personal data with anyone.</li>
+    <li>We do not track you or use third-party analytics libraries.</li>
+    <li>We do not display advertisements.</li>
+    <li>We do not operate backend servers that receive your QR data, guest lists, or camera feeds.</li>
+    <li>We do not require user accounts or registration.</li>
+  </ul>
+
+  <h2>4. Where your data is stored</h2>
+  <p>All data generated or imported within Qruify is stored exclusively in the app's sandboxed private storage on your device. Uninstalling the app completely deletes its local database and all associated data.</p>
+
+  <h2>5. Children's Privacy</h2>
+  <p>Qruify is a general-purpose offline utility and is not directed at children under 13. It collects no personal information from any user of any age.</p>
+
+  <h2>6. Open Source & Transparency</h2>
+  <p>Qruify is open-source software released under the MIT license. You can inspect the source code, verify that no network requests are made, and report issues at:</p>
+  <p><a href="https://github.com/GDGOAU-MOBILE/Qruify">github.com/GDGOAU-MOBILE/Qruify</a></p>
+
+  <h2>7. Contact</h2>
+  <p>If you have any questions about this privacy policy, you can open an issue on GitHub at <a href="https://github.com/GDGOAU-MOBILE/Qruify/issues">github.com/GDGOAU-MOBILE/Qruify/issues</a>.</p>
+</main>
+</body>
+</html>
