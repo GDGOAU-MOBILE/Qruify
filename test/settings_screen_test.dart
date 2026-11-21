@@ -89,4 +89,13 @@ void main() {
     expect(left, isEmpty);
     expect(find.text('History cleared.'), findsOneWidget);
   });
+
+  testWidgets('shows privacy policy option and opens sheet', (tester) async {
+    await _services(tester);
+    expect(find.text('Privacy policy'), findsOneWidget);
+    await tester.tap(find.text('Privacy policy'));
+    await tester.pumpAndSettle();
+    expect(find.text('Share Privacy Policy Link'), findsOneWidget);
+    expect(find.text('What Qruify Handles'), findsOneWidget);
+  });
 }

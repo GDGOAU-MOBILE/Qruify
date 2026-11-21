@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../services/app_services.dart';
 import '../shared/confirm_sheet.dart';
@@ -11,6 +13,10 @@ const _danger = Color(0xFFD70015);
 
 /// Kept in step with `version` in pubspec.yaml.
 const appVersion = '1.0.0';
+
+/// The official hosted privacy policy URL.
+const privacyPolicyUrl =
+    'https://ferousco-dev.github.io/qruify-privacy-policy/';
 
 /// A few housekeeping actions and a plain statement of what the app does
 /// with your data.
@@ -60,6 +66,164 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (mounted) {
       _say('The welcome screen will show the next time you open the app.');
     }
+  }
+
+  void _showPrivacyPolicy(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.white,
+      showDragHandle: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      builder: (ctx) => DraggableScrollableSheet(
+        initialChildSize: 0.85,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (ctx, scrollController) => ListView(
+          controller: scrollController,
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Privacy Policy',
+                    style: Theme.of(ctx).textTheme.headlineSmall?.copyWith(
+                          color: _ink,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.5,
+                        ),
+                  ),
+                ),
+                Semantics(
+                  button: true,
+                  label: 'Close',
+                  child: Material(
+                    color: _fill,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => Navigator.of(ctx).maybePop(),
+                      child: const SizedBox(
+                        width: 36,
+                        height: 36,
+                        child: Center(
+                          child: HugeIcon(
+                            icon: HugeIcons.strokeRoundedCancel01,
+                            size: 18,
+                            color: _ink,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: _fill,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Text(
+                'Qruify is private by design and works completely offline. There are no accounts, no ads, no trackers, and no analytics. All QR generation, camera scanning, guest list data, and history stay strictly on your device.',
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  height: 1.4,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'What Qruify Handles',
+              style: TextStyle(
+                color: _ink,
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              '• QR Content: Text, links, Wi-Fi details, and contacts you generate are processed locally on your device.\n'
+              '• Camera Scanner: Camera frames are decoded in memory in real time to read QR barcodes. Images are never recorded, saved, or uploaded.\n'
+              '• Guest Lists: Imported CSV files and check-in statuses are saved in your device\'s local database and never leave the phone.\n'
+              '• History & Styles: Your saved codes and custom colors are kept exclusively in local device storage.',
+              style: TextStyle(color: _secondary, fontSize: 14, height: 1.5),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Device Permissions',
+              style: TextStyle(
+                color: _ink,
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Camera access is requested solely for optical barcode scanning while using the in-app scanner. It is not used for any other purpose.',
+              style: TextStyle(color: _secondary, fontSize: 14, height: 1.4),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: FilledButton.icon(
+                onPressed: () {
+                  SharePlus.instance.share(
+                    ShareParams(
+                      text: privacyPolicyUrl,
+                      subject: 'Qruify Privacy Policy',
+                    ),
+                  );
+                },
+                icon: const HugeIcon(
+                  icon: HugeIcons.strokeRoundedShare08,
+                  size: 20,
+                  color: Colors.white,
+                ),
+                label: const Text('Share Privacy Policy Link'),
+                style: FilledButton.styleFrom(
+                  backgroundColor: _ink,
+                  foregroundColor: Colors.white,
+                  shape: const StadiumBorder(),
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  Clipboard.setData(const ClipboardData(text: privacyPolicyUrl));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Privacy policy URL copied to clipboard'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Copy Policy URL',
+                  style: TextStyle(color: _secondary, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -127,6 +291,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: 'Show the welcome screen again',
                   subtitle: 'Next time you open the app',
                   onTap: _showIntro,
+                ),
+                _Row(
+                  icon: HugeIcons.strokeRoundedShield01,
+                  title: 'Privacy policy',
+                  subtitle: 'Read our offline privacy statement',
+                  onTap: () => _showPrivacyPolicy(context),
                 ),
               ],
             ),
