@@ -7,6 +7,7 @@ import '../../core/qr_type.dart';
 import '../../services/app_services.dart';
 import '../customization/customization_screen.dart';
 import '../history/history_screen.dart';
+import '../scanner/scanner_screen.dart';
 import '../settings/settings_screen.dart';
 import '../../data/history_repository.dart';
 import 'generator_controller.dart';
@@ -562,6 +563,35 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
     );
   }
 
+  Widget _scanFab() {
+    return Semantics(
+      button: true,
+      label: 'Scan QR code',
+      child: Material(
+        key: const Key('scan_button'),
+        color: _ink,
+        shape: const CircleBorder(),
+        elevation: 3,
+        shadowColor: Colors.black.withValues(alpha: 0.35),
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: () => _open(const ScannerScreen()),
+          child: const SizedBox(
+            width: 56,
+            height: 56,
+            child: Center(
+              child: HugeIcon(
+                icon: HugeIcons.strokeRoundedCamera01,
+                size: 24,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _generateBar() {
     final done = _result != null;
     final enabled = done ? !_sharing : _c.isValid && !_busy;
@@ -570,6 +600,14 @@ class _GeneratorScreenState extends State<GeneratorScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (!done)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: _scanFab(),
+              ),
+            ),
           SizedBox(
             key: _shareKey,
             width: double.infinity,

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../data/database.dart';
+import '../data/guest_repository.dart';
 import '../data/history_repository.dart';
 import '../data/settings_service.dart';
 import '../features/generator/generator_controller.dart';
@@ -14,13 +15,16 @@ class AppServices {
     required this.settings,
     QrExportService? export,
     LogoPicker? logoPicker,
+    GuestRepository? guests,
   }) : history = HistoryRepository(database),
+       guests = guests ?? GuestRepository(database),
        export = export ?? QrExportService(),
        logoPicker = logoPicker ?? GalleryLogoPicker();
 
   final AppDatabase database;
   final SettingsService settings;
   final HistoryRepository history;
+  final GuestRepository guests;
   final QrExportService export;
   final LogoPicker logoPicker;
 
